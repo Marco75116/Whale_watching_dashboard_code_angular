@@ -28,7 +28,7 @@ export class DashboardService {
   bigChart() {
     return [{
       name: 'Asia',
-      data: [502, 635, 809, 947, 1402, 3634, 5268]
+      data: [1000, 635, 809, 947, 1402, 3634, 5268]
     }, {
       name: 'Africa',
       data: [106, 107, 111, 133, 221, 767, 1766]
@@ -40,7 +40,7 @@ export class DashboardService {
       data: [18, 31, 54, 156, 339, 818, 1201]
     }, {
       name: 'Oceania',
-      data: [2, 2, 2, 6, 13, 30, 46]
+      data: [4, 2, 2, 6, 13, 30, 46]
     }];
   }
 
@@ -52,11 +52,11 @@ export class DashboardService {
     return [{
       name: 'LinkPool',
       y: 61.41,
-      sliced: true,
-      selected: true
+      // sliced: true,
+      // selected: true
     }, {
-      name: 'Matic Token',
-      y: 11.84
+      name: 'Matic TokKen',
+      y: 110.4
     }, {
       name: 'EANTO Token',
       y: 12.05

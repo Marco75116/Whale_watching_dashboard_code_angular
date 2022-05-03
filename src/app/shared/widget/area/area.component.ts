@@ -1,23 +1,43 @@
 import { Component, OnInit, Input } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import HC_exporting from 'highcharts/modules/exporting';
+import {HttpClient,HttpHeaders} from '@angular/common/http'
 
-
+export interface AreaTypeData{
+    timestamp : string,
+    valueModified :number,
+  }
 @Component({
   selector: 'app-widget-area',
   templateUrl: './area.component.html',
   styleUrls: ['./area.component.scss']
 })
+
+
 export class AreaComponent implements OnInit {
 
   chartOptions: {}={};
   @Input() data: any = [];
 
   Highcharts = Highcharts;
+  timestampTab : string[]= [];
+  benefTab  : number[]= [];
+  constructor(private httpclient: HttpClient) { }
 
-  constructor() { }
-
+  private urlArea = "http://localhost:8000/historicalTx"
   ngOnInit() {
+
+    this.httpclient.get<AreaTypeData[]>(this.urlArea).subscribe(data => {
+        data.forEach(tx => {
+            this.timestampTab.push(tx.timestamp);
+            this.benefTab.push(tx.valueModified);
+        });
+        console.log(this.timestampTab);
+        console.log(this.benefTab);
+        this.Area()
+      })
+
+
     this.chartOptions = {
         chart: {
             type: 'area'
@@ -26,10 +46,10 @@ export class AreaComponent implements OnInit {
             text: 'Historic value of matic tokens in the Wallet'
         },
         subtitle: {
-            text: 'Source: Wikipedia.org'
+            text: 'Source: Mon taff'
         },
         xAxis: {
-            categories: ['1750', '1800', '1850', '1900', '1950', '1999', '2050'],
+            categories: [],
             tickmarkPlacement: 'on',
             title: {
                 enabled: false
@@ -61,20 +81,8 @@ export class AreaComponent implements OnInit {
         },
         series: [{
             name: 'Asia',
-            data: [502, 635, 809, 947, 1402, 3634, 5268]
-        }, {
-            name: 'Africa',
-            data: [106, 107, 111, 133, 221, 767, 1766]
-        }, {
-            name: 'Europe',
-            data: [163, 203, 276, 408, 547, 729, 628]
-        }, {
-            name: 'America',
-            data: [18, 31, 54, 156, 339, 818, 1201]
-        }, {
-            name: 'Oceania',
-            data: [2, 2, 2, 6, 13, 30, 46]
-        }]
+            data: []
+        },]
     };
 
     HC_exporting(Highcharts);
@@ -84,6 +92,57 @@ export class AreaComponent implements OnInit {
         new Event('resize')
       );
     }, 300);
+  }
+
+  Area(){
+    this.chartOptions = {
+        chart: {
+            type: 'area'
+        },
+        title: {
+            text: 'Historic value of matic tokens in the Wallet'
+        },
+        subtitle: {
+            text: 'Source: Mon taff'
+        },
+        xAxis: {
+            categories: this.timestampTab,
+            tickmarkPlacement: 'on',
+            title: {
+                enabled: false
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Billions'
+            },
+            labels: {
+                formatter: function () {
+                }
+            }
+        },
+        tooltip: {
+            split: true,
+            valueSuffix: ' dollars'
+        },
+        plotOptions: {
+            area: {
+                stacking: 'normal',
+                lineColor: '#666666',
+                lineWidth: 1,
+                marker: {
+                    lineWidth: 1,
+                    lineColor: '#666666'
+                }
+            }
+        },
+        series: [{
+            name: '0xeC504bfcC11021045598bb24C9DAd5818033bbD4',
+            data: this.benefTab
+        },]
+    };
+
+    HC_exporting(Highcharts);
   }
 
 }

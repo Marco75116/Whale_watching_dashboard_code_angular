@@ -32,7 +32,7 @@ export class CardComponent implements OnInit {
         text: null
       },
       subtitle: {
-        text: null
+        text: "Bénéfice valeur wallet $"
       },
       tooltip: {
         split: true,

@@ -10,18 +10,18 @@
 <br>
 
 <div fxlayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="stats-cards">
-    <mat-card fxFlex="25">
-        <app-widget-card label="New Users" total="18k" pourcentage="50" [data]="cards" ></app-widget-card>
+    <mat-card fxFlex="45">
+        <app-widget-card label="0x4e65175f05b4140a0747c29cce997cd4bb7190d4" total="0.0k" pourcentage="50" [data]="cards" ></app-widget-card>
+    </mat-card>
+    <!-- <mat-card fxFlex="25">
+        <app-widget-card label="" total="" pourcentage="50" [data]="cards" ></app-widget-card>
     </mat-card>
     <mat-card fxFlex="25">
-        <app-widget-card label="Users Retention" total="13k" pourcentage="50" [data]="cards" ></app-widget-card>
+        <app-widget-card label="" total="" pourcentage="40" [data]="cards"></app-widget-card>
     </mat-card>
     <mat-card fxFlex="25">
-        <app-widget-card label="Users engaments" total="8k" pourcentage="40" [data]="cards"></app-widget-card>
-    </mat-card>
-    <mat-card fxFlex="25">
-        <app-widget-card label="Referal" total="58k" pourcentage="30" [data]="cards"></app-widget-card> 
-    </mat-card>    
+        <app-widget-card label="" total="" pourcentage="30" [data]="cards"></app-widget-card>  -->
+    <!-- </mat-card>     -->
 </div>
 
 <br>
@@ -70,5 +70,6 @@
           </div>
     </div>
     
-<app-widget-pie [data]="pieChart" fxFlex="40"></app-widget-pie>
+<app-widget-pie *ngIf="!boolPiecharts" [data]="pieChart" fxFlex="40"></app-widget-pie>
+<app-widget-pie *ngIf="boolPiecharts" [data]="pieChart" fxFlex="40"></app-widget-pie>
 </div>

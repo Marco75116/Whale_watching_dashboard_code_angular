@@ -66,12 +66,14 @@ export class DashboardComponent implements AfterViewInit,OnInit {
   balanceToken :  TokenBalance[] =[];
   proportionToken : pieChartTypeData[]=[];
   Ourbool: boolean = false;
+  boolPiecharts : boolean = false;
+
 
   constructor(private dashboardService: DashboardService,
               private httpclient: HttpClient) { }
 
   private urlTokenList ="http://localhost:8000/list"
-  private urlTokenProportion = "http://localhost:8000/proportion"
+  private urlTokenProportion = "http://localhost:8000/bigchart"
 
   ngOnInit(): void {
     
@@ -84,14 +86,13 @@ export class DashboardComponent implements AfterViewInit,OnInit {
       this.dataSource=new MatTableDataSource<TokenBalance>(ELEMENT_DATA);
       this.dataSource.paginator = this.paginator;
     })
-
-    this.httpclient.get<TokenProportion[]>(this.urlTokenProportion).subscribe(data => {
-      for (let t of data){
-        this.proportionToken.push( {name : t.symbol,y : t.pourcentage} )     
-      }
-      this.pieChart= this.proportionToken;
-    
-    })
+    // this.httpclient.get<pieChartTypeData[]>(this.urlTokenProportion).subscribe(data => {
+    //   console.log(data);
+    //   this.pieChart = data;
+      
+    //   this.boolPiecharts = true;
+    // })
+  
   } 
 
   
